@@ -18,11 +18,14 @@ This repository decouples **Platform Infrastructure** from **Application Deliver
 ```
 vcf-demo-infra/
 ├── argocd/
+│   ├── instance/
+│   │   └── argo-instance.yaml    # ArgoCD Supervisor Service CR targeting infra-fbhdn
 │   ├── projects/
 │   │   ├── infra.yaml            # Platform AppProject
 │   │   └── tenant-apps.yaml      # Tenant AppProject
-│   └── appsets/
-│       └── cluster-provisioning.yaml # ApplicationSet for VKS cluster CRDs & add-ons
+│   ├── appsets/
+│   │   └── cluster-provisioning.yaml # ApplicationSet for VKS cluster CRDs & add-ons
+│   └── root-app.yaml             # Root Application driving 100% GitOps
 ├── infrastructure/
 │   ├── clusters/
 │   │   ├── base/                 # CAPI Cluster base template
@@ -35,12 +38,17 @@ vcf-demo-infra/
 
 ## Quick Start
 
-1. Apply `AppProject` definitions to the ArgoCD Supervisor namespace:
+1. Deploy ArgoCD instance to the Supervisor namespace (`infra-fbhdn`):
    ```bash
-   kubectl apply -f argocd/projects/ -n infra-fbhdn
+   kubectl apply -f argocd/instance/argo-instance.yaml -n infra-fbhdn
    ```
 
-2. Deploy cluster infrastructure & VKS Add-ons to `prod-2r8k2`:
+2. Register destination cluster/namespace and apply Root Application (100% GitOps):
+   ```bash
+   kubectl apply -f argocd/root-app.yaml -n infra-fbhdn
+   ```
+
+3. Deploy cluster infrastructure & VKS Add-ons to `prod-2r8k2` (or let ArgoCD sync via `root-infra`):
    ```bash
    kubectl kustomize infrastructure/clusters/overlays/prod | kubectl apply -f -
    kubectl kustomize infrastructure/addons/overlays/prod | kubectl apply -f -

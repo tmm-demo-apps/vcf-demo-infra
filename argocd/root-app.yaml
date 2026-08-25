@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-infra
+  namespace: infra-fbhdn
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/tmm-demo-apps/vcf-demo-infra.git
+    targetRevision: HEAD
+    path: argocd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: infra-fbhdn
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
