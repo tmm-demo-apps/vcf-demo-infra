@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-provisioning
+  namespace: infra-fbhdn
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: vks-argo
+            env: prod
+            supervisorNamespace: prod-2r8k2
+  template:
+    metadata:
+      name: '{{cluster}}-provisioning'
+    spec:
+      project: infra
+      sources:
+        - repoURL: https://github.com/tmm-demo-apps/vcf-demo-infra.git
+          targetRevision: HEAD
+          path: 'infrastructure/clusters/overlays/{{env}}'
+        - repoURL: https://github.com/tmm-demo-apps/vcf-demo-infra.git
+          targetRevision: HEAD
+          path: 'infrastructure/addons/overlays/{{env}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{supervisorNamespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
