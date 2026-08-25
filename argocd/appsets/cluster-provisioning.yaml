@@ -23,7 +23,7 @@ spec:
           targetRevision: HEAD
           path: 'infrastructure/addons/overlays/{{env}}'
       destination:
-        server: https://kubernetes.default.svc
+        name: in-cluster
         namespace: '{{supervisorNamespace}}'
       syncPolicy:
         automated:
