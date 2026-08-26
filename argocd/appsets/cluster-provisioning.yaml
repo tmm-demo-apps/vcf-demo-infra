@@ -13,6 +13,7 @@ spec:
   template:
     metadata:
       name: '{{cluster}}-provisioning'
+      namespace: infra-fbhdn
     spec:
       project: infra
       sources:

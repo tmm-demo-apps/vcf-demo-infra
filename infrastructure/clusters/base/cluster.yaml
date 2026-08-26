@@ -30,7 +30,7 @@ spec:
       metadata:
         annotations:
           run.tanzu.vmware.com/resolve-os-image: >-
-            os-name=ubuntu
+            os-name=ubuntu,
             os-version=24.04
     workers:
       machineDeployments:
@@ -41,5 +41,5 @@ spec:
               cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: '3'
               cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: '2'
               run.tanzu.vmware.com/resolve-os-image: >-
-                os-name=ubuntu
+                os-name=ubuntu,
                 os-version=24.04
