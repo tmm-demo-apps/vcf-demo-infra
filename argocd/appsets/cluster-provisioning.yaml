@@ -23,7 +23,7 @@ spec:
           targetRevision: HEAD
           path: 'infrastructure/addons/overlays/{{env}}'
       destination:
-        name: in-cluster
+        name: supervisor
         namespace: '{{supervisorNamespace}}'
       syncPolicy:
         automated:

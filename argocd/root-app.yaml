@@ -10,7 +10,7 @@ spec:
     targetRevision: HEAD
     path: argocd
   destination:
-    name: in-cluster
+    name: supervisor
     namespace: infra-fbhdn
   syncPolicy:
     automated:
