@@ -17,9 +17,9 @@ This repository decouples **Platform Infrastructure** from **Application Deliver
 
 ```
 vcf-demo-infra/
+├── instance/
+│   └── argo-instance.yaml    # ArgoCD Supervisor Service CR targeting infra-fbhdn
 ├── argocd/
-│   ├── instance/
-│   │   └── argo-instance.yaml    # ArgoCD Supervisor Service CR targeting infra-fbhdn
 │   ├── projects/
 │   │   ├── infra.yaml            # Platform AppProject
 │   │   └── tenant-apps.yaml      # Tenant AppProject
@@ -40,7 +40,7 @@ vcf-demo-infra/
 
 1. Deploy ArgoCD instance to the Supervisor namespace (`infra-fbhdn`):
    ```bash
-   kubectl apply -f argocd/instance/argo-instance.yaml -n infra-fbhdn
+   kubectl apply -f instance/argo-instance.yaml -n infra-fbhdn
    ```
 
 2. Register destination cluster/namespace and apply Root Application (100% GitOps):
