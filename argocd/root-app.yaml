@@ -9,6 +9,9 @@ spec:
     repoURL: https://github.com/tmm-demo-apps/vcf-demo-infra.git
     targetRevision: HEAD
     path: argocd
+    directory:
+      recurse: true
+      exclude: 'root-app.yaml'
   destination:
     name: supervisor
     namespace: infra-fbhdn
